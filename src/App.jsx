@@ -27,6 +27,7 @@ function App() {
   const instanceRef = useRef(null);
   const plugins = [
     [
+      // Provides a minimap
       MapPlugin,
       {
         imageUrl: mapImage,
@@ -36,6 +37,7 @@ function App() {
         rotation: "135deg",
       },
     ],
+    // Provides navigation arrows
     [
       VirtualTourPlugin,
       {
@@ -51,17 +53,22 @@ function App() {
       },
     ],
   ];
+
   const navbar = ["zoom", "fullscreen"];
+
   const handleReady = (instance) => {
     instanceRef.current = instance;
 
     const mapPlugin = instanceRef.current.getPlugin(MapPlugin);
     const markerPlugin = instanceRef.current.getPlugin(MarkersPlugin);
     const virtualTour = instanceRef.current.getPlugin(VirtualTourPlugin);
+
     virtualTour.setNodes([
       {
         id: "1",
         panorama: geb1entry01,
+        // TODO: Use a normal image not a 360°
+        thumbnail: geb1entry01,
         gps: [8.817212, 47.223637],
         name: "Geb1 Eingang",
         links: [{ nodeId: "2" }, { nodeId: "3" }, { nodeId: "4" }],
@@ -104,6 +111,8 @@ function App() {
       {
         id: "2",
         panorama: geb1entry05,
+        // TODO: Use a normal image not a 360°
+        thumbnail: geb1entry05,
         gps: [8.817283, 47.223761],
         name: "Geb1 Eingang Treppe",
         links: [{ nodeId: "1" }, { nodeId: "3" }, { nodeId: "4" }],
@@ -111,6 +120,8 @@ function App() {
       {
         id: "3",
         panorama: gang311,
+        // TODO: Use a normal image not a 360°
+        thumbnail: gang311,
         gps: [8.817553, 47.223164],
         name: "Gang Gebäude 3 Stockwerk 1",
         links: [{ nodeId: "1" }, { nodeId: "2" }, { nodeId: "4" }],
@@ -118,6 +129,8 @@ function App() {
       {
         id: "4",
         panorama: room1257,
+        // TODO: Use a normal image not a 360°
+        thumbnail: room1257,
         gps: [10.127586, 47.095955],
         name: "Zimmer 1.257",
         links: [{ nodeId: "1" }, { nodeId: "2" }, { nodeId: "3" }],
@@ -136,6 +149,7 @@ function App() {
         ],
       },
     ]);
+
     virtualTour.addEventListener("node-changed", ({ node, data }) => {
       if (node.id == 1) {
         mapPlugin.setImage(mapImage, { x: 566, y: 230 });
