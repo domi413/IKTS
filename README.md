@@ -1,8 +1,19 @@
-# React + Vite
+# IKTS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dieses Repo beinhaltet den Sourcecode für das IKTS-Modul "Lernlabor".
 
-Currently, two official plugins are available:
+## Aufgabenbeschreibung
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+lalala
+
+## Projektbeschreibung
+
+lalala
+
+## TODO
+
+- [ ] Better images (resolution)
+- [ ] Center navigation arrows
+- [ ] More Marker
+- [ ] Place selectable on minimap
+- [ ] More Images, so you can move like google maps
