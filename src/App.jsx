@@ -12,18 +12,62 @@ import mapImage from "../images/map.png";
 import outsidemapImage from "../images/outsidemap.png";
 // import markerImage from "../images/assets/marker.png" // old green marker
 import markerImage from "../images/assets/marker_ost.svg";
+import startingimage from "../images/startbild.jpg";
 
 //Gebäude 1
 import room1257 from "../images/geb1/Zimmer1257.jpg";
 import geb1entry01 from "../images/geb1/geb1entry01.jpg";
 import geb1entry05 from "../images/geb1/geb1entry05.jpg";
+import geb1entry8site from "../images/geb1/geb1entry8site.jpg";
 
 //Gebäude 3
 import gang311 from "../images/geb3/geb3ges1gang.jpg";
 
 const MARKER_SIZE = 64;
 
+const maphotspotsgeb1 = [
+          {
+            x: 566,
+            y: 230,
+            id: "hsp_geb1_mainenter",
+            color: "blue",
+            tooltip: "Gebäude 1 Haupteingang",
+          },
+          {
+            x: 462,
+            y: 326,
+            id: "hsp_geb1_siteenter",
+            color: "blue",
+            tooltip: "Gebäude 1 Seiteneingang",
+          },
+          {
+            x: 700,
+            y: 524,
+            id: "hsp_geb1_backenter",
+            color: "blue",
+            tooltip: "Gebäude 1 Hintereingang",
+          },
+          {
+            x: 762,
+            y: 450,
+            id: "hsp_geb1_8sideenter",
+            color: "blue",
+            tooltip: "Gebäude 1 Seiteneingang",
+          }
+          
+        ];
+
 function App() {
+  //URL parameters to enable specific entry point
+  const queryParameters = new URLSearchParams(window.location.search);
+  const entrypoint = queryParameters.get("entrypoint");
+  /*if (entrypoint == "geb1_mainenter") {
+    startingimage = geb1entry01;
+  } else if (entrypoint == "geb1_siteenter") {
+  } else if (entrypoint == "geb1_8sideenter") {
+    startingimage = geb1entry8site;
+  }*/
+
   const instanceRef = useRef(null);
   const plugins = [
     [
@@ -35,6 +79,7 @@ function App() {
         position: "top right",
         visibleOnLoad: true,
         rotation: "135deg",
+        hotspots: maphotspotsgeb1,
       },
     ],
     // Provides navigation arrows
@@ -71,7 +116,7 @@ function App() {
         thumbnail: geb1entry01,
         gps: [8.817212, 47.223637],
         name: "Geb1 Eingang",
-        links: [{ nodeId: "2" }, { nodeId: "3" }, { nodeId: "4" }],
+        links: [{ nodeId: "2" }, { nodeId: "3" }, { nodeId: "4" }, { nodeId: "5" }],
         markers: [
           {
             id: "3dlab",
@@ -83,6 +128,13 @@ function App() {
             tooltip: "OST 3DLab. <b>Click me!</b>",
             content:
               "<h1>3D Lab</h1><p>Die OST Rapperswil betreibt ein 3D Lab in welchem 6 3D Drucker zur verfügung stehen um Produkte bzw. Prototypen zu drucken.<br><a href='https://hsr.simplybook.me/v2/' target=_blank'>Termin buchen</a></p>",
+              data: {
+                map: {
+                  distance: 2,
+                  size: 25,
+                  image: markerImage, 
+                }
+              }
           },
           {
             id: "peteimer",
@@ -94,6 +146,13 @@ function App() {
             tooltip: "Recyclingstation. <b>Click me!</b>",
             content:
               "<h1>Recyclingstation</h1><p>Auf dem ganzen Campus sind Recyclingstationen verteilt, damit verwertbare Materialien nicht im Müll landen.</p>",
+            data: {
+              map: {
+                distance: 2,
+                size: 25,
+                image: markerImage, 
+              }
+            }
           },
           {
             id: "golden_pillar",
@@ -148,25 +207,68 @@ function App() {
           },
         ],
       },
+      {
+        id: "5",
+        panorama: geb1entry8site,
+        // TODO: Use a normal image not a 360°
+        thumbnail: geb1entry8site,
+        gps: [8.818058, 47.223184],
+        name: "Gebäude 1 Eingang von Gebäude 8",
+        links: [{ nodeId: "1" }, { nodeId: "4" }],
+        sphereCorrection: { pan: '90deg' },
+      },
     ]);
 
     virtualTour.addEventListener("node-changed", ({ node, data }) => {
       if (node.id == 1) {
         mapPlugin.setImage(mapImage, { x: 566, y: 230 });
+        mapPlugin.setHotspots(maphotspotsgeb1);
       } else if (node.id == 2) {
         mapPlugin.setImage(mapImage, { x: 554, y: 277 });
       } else if (node.id == 3) {
         mapPlugin.setImage(outsidemapImage, { x: 756, y: 628 });
       } else if (node.id == 4) {
         mapPlugin.setImage(mapImage, { x: 610, y: 431 });
+      } else if (node.id == 5) {
+        mapPlugin.setImage(mapImage, { x: 762, y: 450 });
       }
     });
+    
+    mapPlugin.addEventListener('select-hotspot', ({ hotspotId }) => {
+      console.log(`Clicked on hotspot ${hotspotId}`);
+      if (hotspotId == "hsp_geb1_mainenter") {
+        virtualTour.setCurrentNode(1);
+      } else if (hotspotId == "hsp_geb1_backenter") {
+        virtualTour.setCurrentNode(3);
+        mapPlugin.clearHotspots();
+      } else if (hotspotId == "hsp_geb1_8sideenter") {
+        virtualTour.setCurrentNode(5);
+      }
+    });
+    
+
+    
+    //Manage Entry Point
+
+    //Example: http://ikts.gianhunold.ch/?entrypoint=geb1_siteenter 
+    //Example: http://ikts.gianhunold.ch/?entrypoint=geb1_8sideenter 
+
+    if (entrypoint == "geb1_mainenter") {
+      virtualTour.setCurrentNode(1);
+      //startingimage = geb1entry01;
+    } else if (entrypoint == "geb1_siteenter") {
+      virtualTour.setCurrentNode(2);
+    } else if (entrypoint == "geb1_8sideenter") {
+      virtualTour.setCurrentNode(5);
+      //startingimage = geb1entry8site;
+    }
+    
   };
 
   return (
     <>
       <ReactPhotoSphereViewer
-        src={geb1entry01}
+        src={startingimage}
         container="viewer"
         plugins={plugins}
         navbar={navbar}
