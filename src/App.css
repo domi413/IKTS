@@ -40,3 +40,24 @@
 .read-the-docs {
   color: #888;
 }
+
+.viewer-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.b-enter-vr-button {
+  position: fixed !important;
+  top: 10px;
+  left: 10px;
+  width: 10%;
+  height: 5%;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000; /* Ensures the button stays on top of other elements */
+}

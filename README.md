@@ -23,5 +23,5 @@ lalala
 Install Aframe Pakets in Node.js
 
 ```
-npm install aframe aframe-react react react-dom
+npm install aframe
 ```

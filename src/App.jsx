@@ -1,5 +1,7 @@
 import "./App.css";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+
+//Import PhotoSphereViewer Modules
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
 import { VirtualTourPlugin } from "@photo-sphere-viewer/virtual-tour-plugin";
 import { MapPlugin } from "@photo-sphere-viewer/map-plugin";
@@ -8,13 +10,16 @@ import "@photo-sphere-viewer/virtual-tour-plugin/index.css";
 import "@photo-sphere-viewer/map-plugin/index.css";
 import "@photo-sphere-viewer/markers-plugin/index.css";
 
+//Import AFrame Modules
+import "aframe";
+
+//Import Images
 import mapImage from "../images/map.png";
 import outsidemapImage from "../images/outsidemap.png";
 // import markerImage from "../images/assets/marker.png" // old green marker
 import markerImage from "../images/assets/marker_ost.svg";
 //import startingimage from "../images/startbild.jpg"; //Update for next sprint
 import startingimage from "../images/geb1/geb1entry01.jpg";
-
 
 //Gebäude 1
 import room1257 from "../images/geb1/Zimmer1257.jpg";
@@ -59,7 +64,35 @@ const maphotspotsgeb1 = [
           
         ];
 
+const VRScene = ({ imageUrl }) => {
+  return (
+    <div>
+      <a-scene embedded vr-mode-ui="enabled: true">
+        <a-sky src={imageUrl} rotation="0 -130 0"></a-sky>
+        <a-entity camera position="0 1.6 0" look-controls></a-entity>
+        <a-entity laser-controls="hand: right"></a-entity>
+      </a-scene>
+    </div>
+  );
+};
+
 function App() {
+
+  const [vrMode, setVrMode] = useState(false);
+  useEffect(() => {
+    const modifyVrButton = () => {
+      const vrButton = document.querySelector('.a-enter-vr-button');
+      
+      if (vrButton) {
+        vrButton.classList.add('b-enter-vr-button');
+        vrButton.innerText = 'Start VR';
+        vrButton.classList.remove('a-enter-vr-button');
+      }
+    };
+    setTimeout(modifyVrButton, 1000);
+  }, []);
+
+
   /* //Update for next sprint
   //URL parameters to enable specific entry point
   const queryParameters = new URLSearchParams(window.location.search);
@@ -70,6 +103,7 @@ function App() {
   } else if (entrypoint == "geb1_8sideenter") {
     startingimage = geb1entry8site;
   }*/
+
   const instanceRef = useRef(null);
   const plugins = [
     [
@@ -246,8 +280,7 @@ function App() {
       } else if (hotspotId == "hsp_geb1_8sideenter") {
         virtualTour.setCurrentNode(5);
       }
-    });
-    
+    });    
 
     //Created for next sprint
     
@@ -309,6 +342,7 @@ function App() {
         }}
         onReady={handleReady}
       ></ReactPhotoSphereViewer>
+      <VRScene imageUrl={startingimage} />
     </>
   );
 }
