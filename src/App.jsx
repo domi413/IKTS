@@ -12,7 +12,9 @@ import mapImage from "../images/map.png";
 import outsidemapImage from "../images/outsidemap.png";
 // import markerImage from "../images/assets/marker.png" // old green marker
 import markerImage from "../images/assets/marker_ost.svg";
-import startingimage from "../images/startbild.jpg";
+//import startingimage from "../images/startbild.jpg"; //Update for next sprint
+import startingimage from "../images/geb1/geb1entry01.jpg";
+
 
 //Gebäude 1
 import room1257 from "../images/geb1/Zimmer1257.jpg";
@@ -58,6 +60,7 @@ const maphotspotsgeb1 = [
         ];
 
 function App() {
+  /* //Update for next sprint
   //URL parameters to enable specific entry point
   const queryParameters = new URLSearchParams(window.location.search);
   const entrypoint = queryParameters.get("entrypoint");
@@ -67,7 +70,6 @@ function App() {
   } else if (entrypoint == "geb1_8sideenter") {
     startingimage = geb1entry8site;
   }*/
-
   const instanceRef = useRef(null);
   const plugins = [
     [
@@ -230,10 +232,10 @@ function App() {
       } else if (node.id == 4) {
         mapPlugin.setImage(mapImage, { x: 610, y: 431 });
       } else if (node.id == 5) {
-        mapPlugin.setImage(mapImage, { x: 762, y: 450 });
+        mapPlugin.setImage(mapImage, { x: 762, y: 450 }, "100deg");
       }
     });
-    
+ 
     mapPlugin.addEventListener('select-hotspot', ({ hotspotId }) => {
       console.log(`Clicked on hotspot ${hotspotId}`);
       if (hotspotId == "hsp_geb1_mainenter") {
@@ -247,12 +249,13 @@ function App() {
     });
     
 
+    //Created for next sprint
     
     //Manage Entry Point
 
     //Example: http://ikts.gianhunold.ch/?entrypoint=geb1_siteenter 
     //Example: http://ikts.gianhunold.ch/?entrypoint=geb1_8sideenter 
-
+    /*
     if (entrypoint == "geb1_mainenter") {
       virtualTour.setCurrentNode(1);
       //startingimage = geb1entry01;
@@ -262,6 +265,7 @@ function App() {
       virtualTour.setCurrentNode(5);
       //startingimage = geb1entry8site;
     }
+      */
     
   };
 
