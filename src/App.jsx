@@ -25,6 +25,7 @@ import startingimage from "../images/geb1/geb1entry01.jpg";
 import room1257 from "../images/geb1/Zimmer1257.jpg";
 import geb1entry01 from "../images/geb1/geb1entry01.jpg";
 import geb1entry05 from "../images/geb1/geb1entry05.jpg";
+import geb1s1intcorner from "../images/geb1/geb1s1intcorner.jpg";
 import geb1entry8site from "../images/geb1/geb1entry8site.jpg";
 
 //Gebäude 3
@@ -64,11 +65,11 @@ const maphotspotsgeb1 = [
           
         ];
 
-const VRScene = ({ imageUrl }) => {
+const VRScene = () => {
   return (
     <div>
       <a-scene embedded vr-mode-ui="enabled: true">
-        <a-sky src={imageUrl} rotation="0 -130 0"></a-sky>
+        <a-sky src={startingimage} rotation="0 -130 0"></a-sky>
         <a-entity camera position="0 1.6 0" look-controls></a-entity>
         <a-entity laser-controls="hand: right"></a-entity>
       </a-scene>
@@ -210,7 +211,7 @@ function App() {
         thumbnail: geb1entry05,
         gps: [8.817283, 47.223761],
         name: "Geb1 Eingang Treppe",
-        links: [{ nodeId: "1" }, { nodeId: "3" }, { nodeId: "4" }],
+        links: [{ nodeId: "1" }, { nodeId: "3" }, { nodeId: "4" }, { nodeId: "6" }],
       },
       {
         id: "3",
@@ -253,20 +254,63 @@ function App() {
         links: [{ nodeId: "1" }, { nodeId: "4" }],
         sphereCorrection: { pan: '90deg' },
       },
+      {
+        id: "6",
+        panorama: geb1s1intcorner,
+        // TODO: Use a normal image not a 360°
+        thumbnail: geb1s1intcorner,
+        gps: [8.817240, 47.223580],
+        name: "Cafeteria aus dem International Corner",
+        links: [{ nodeId: "2" }],
+        //sphereCorrection: { pan: '90deg' },
+        markers: [
+          {
+            id: "snackbar",
+            position: { yaw: -0.5, pitch: 0 },
+            image: markerImage,
+            size: { width: MARKER_SIZE, height: MARKER_SIZE },
+            anchor: "bottom center",
+            zoomLvl: 100,
+            tooltip: "Snackbar. <b>Click me!</b>",
+            content:
+              "<h1>Snakbar</h1><p>An der Snackbar kann man sich leckeren Kaffe besorgen</p>",
+          },
+          {
+            id: "snackautomat",
+            position: { yaw: -1.1, pitch: 0 },
+            image: markerImage,
+            size: { width: MARKER_SIZE, height: MARKER_SIZE },
+            anchor: "bottom center",
+            zoomLvl: 100,
+            tooltip: "Snackautomat. <b>Click me!</b>",
+            content:
+              "<h1>Snackautomat</h1><p>Auf dem Campus sind mehrere Snackautomaten verteilt</p>",
+          },
+          ],
+      },
     ]);
 
+
+    //Comented things are for next Sprint
     virtualTour.addEventListener("node-changed", ({ node, data }) => {
+      var sky = document.querySelector("a-sky");
+      console.log(sky);
       if (node.id == 1) {
         mapPlugin.setImage(mapImage, { x: 566, y: 230 });
         mapPlugin.setHotspots(maphotspotsgeb1);
+        //sky.setAttribute("src", geb1entry01);
       } else if (node.id == 2) {
         mapPlugin.setImage(mapImage, { x: 554, y: 277 });
+        //sky.setAttribute("src", geb1entry05);
       } else if (node.id == 3) {
         mapPlugin.setImage(outsidemapImage, { x: 756, y: 628 });
       } else if (node.id == 4) {
         mapPlugin.setImage(mapImage, { x: 610, y: 431 });
       } else if (node.id == 5) {
         mapPlugin.setImage(mapImage, { x: 762, y: 450 }, "100deg");
+      }else if (node.id == 6) {
+        mapPlugin.setImage(mapImage, { x: 586, y: 322 });
+        //sky.setAttribute("src", geb1s1intcorner);
       }
     });
  
@@ -342,7 +386,7 @@ function App() {
         }}
         onReady={handleReady}
       ></ReactPhotoSphereViewer>
-      <VRScene imageUrl={startingimage} />
+      <VRScene/>
     </>
   );
 }
