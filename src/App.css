@@ -61,3 +61,11 @@
   cursor: pointer;
   z-index: 1000; /* Ensures the button stays on top of other elements */
 }
+
+#infotext {
+  font-family: Arial, sans-serif;
+}
+
+.psv-panel-content {
+  background-color: #38383879;
+}
