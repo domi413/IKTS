@@ -10,14 +10,6 @@ lalala
 
 lalala
 
-## TODO
-
-- [ ] Better images (resolution)
-- [ ] Center navigation arrows
-- [ ] More Marker
-- [ ] Place selectable on minimap
-- [ ] More Images, so you can move like google maps
-
 ## VR Setup
 
 Install Aframe Pakets in Node.js
