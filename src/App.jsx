@@ -148,13 +148,13 @@ function App() {
                 links: [
                     { nodeId: "2" },
                     { nodeId: "4" },
-                    { nodeId: "5" },
                     { nodeId: "6" },
                 ],
+                sphereCorrection: { pan: '-60deg' },
                 markers: [
                     {
                         id: "3dlab",
-                        position: { yaw: -1.5, pitch: -0.09 },
+                        position: { yaw: -1.9, pitch: -0.09 },
                         image: markerImage,
                         size: { width: MARKER_SIZE, height: MARKER_SIZE },
                         anchor: "bottom center",
@@ -179,6 +179,7 @@ function App() {
                 thumbnail: geb1_3D_LAB_preview,
                 gps: [8.817325, 47.223767],
                 name: "3D LAB",
+                sphereCorrection: { pan: '100deg' },
                 // links: {Exit Trainstation}, {3D-LAB-printer}
                 links: [{ nodeId: "1" }, { nodeId: "3" }],
             },
@@ -189,6 +190,7 @@ function App() {
                 thumbnail: geb1_3D_LAB_printer_preview,
                 gps: [8.817326, 47.223784],
                 name: "3D LAB",
+                sphereCorrection: { pan: '-90deg' },
                 // links: {3D-LAB}
                 links: [{ nodeId: "2" }],
             },
@@ -218,7 +220,10 @@ function App() {
                 thumbnail: Caffeteria_international_Geb1_OG1_preview,
                 gps: [8.81724, 47.22358],
                 name: "Cafeteria aus dem International Corner",
-                links: [{ nodeId: "2" }],
+                links: [
+                    { nodeId: "1" },
+                    { nodeId: "5" },
+                ],
                 //sphereCorrection: { pan: '90deg' },
                 markers: [
                     {
@@ -252,14 +257,17 @@ function App() {
                 mapPlugin.setHotspots(maphotspotsgeb1);
                 sky.setAttribute("src", geb1egentry01);
             } else if (node.id == 2) {
-                mapPlugin.setImage(mapImage, { x: 554, y: 277 });
+                mapPlugin.setImage(mapImage, { x: 581, y: 218 });
                 sky.setAttribute("src", geb1eglab3denter);
             } else if (node.id == 3) {
-                mapPlugin.setImage(outsidemapImage, { x: 756, y: 628 });
+                mapPlugin.setImage(mapImage, { x: 589, y: 210 });
+                sky.setAttribute("src", geb1eglab3d);
             } else if (node.id == 4) {
                 mapPlugin.setImage(mapImage, { x: 610, y: 431 });
+                sky.setAttribute("src", geb1_eg_gang_03_01);
             } else if (node.id == 5) {
                 mapPlugin.setImage(mapImage, { x: 762, y: 450 }, "100deg");
+                sky.setAttribute("src", geb1egentry8side);
             } else if (node.id == 6) {
                 mapPlugin.setImage(mapImage, { x: 586, y: 322 });
                 sky.setAttribute("src", geb1s1intcorner);

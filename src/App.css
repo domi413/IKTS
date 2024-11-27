@@ -46,7 +46,11 @@
   width: 100vw;
   height: 100vh;
 }
-
+.b-enter-vr-button {
+  background-color: red;
+  position: fixed;
+  display: block;
+}
 .b-enter-vr-button {
   position: fixed !important;
   top: 10px;
@@ -61,6 +65,7 @@
   cursor: pointer;
   z-index: 1000; /* Ensures the button stays on top of other elements */
 }
+
 
 #infotext {
   font-family: Arial, sans-serif;
